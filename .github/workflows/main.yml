@@ -3,7 +3,7 @@ name: DeployTest
 on:
     push:
         branches:
-        - main
+        - master
 
 jobs:
     deploy_lambda:
