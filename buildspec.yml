@@ -1,0 +1,47 @@
+version: 0.2
+
+phases:
+  install:  # Install dependencies
+    runtime-versions:
+      nodejs: 20
+    commands:
+      - npm install  # Install Node.js dependencies (if applicable)
+      - pip install --upgrade aws-sam-cli  # Upgrade the AWS SAM CLI
+
+  pre_build:
+    commands:
+      - sam validate --template-file template.yaml
+
+  build:
+    commands:
+      #- cd frontend/mfe-contenedor && npm install && npm run build
+      #- cd ../mfe-lista-usuarios && npm install && npm run build
+      #- cd ../mfe-crear-usuario && npm install && npm run build
+      #- cd ../mfe-sidebar && npm install && npm run build
+      #- cd ../mfe-header && npm install && npm run build
+      #- cd ../mfe-prueba && npm install && npm run build
+      #- cd ../../
+
+      - sam build --use-container
+
+  post_build:
+    commands:
+
+      # - sam package template.yaml --output-template-file packaged.yaml --s3-bucket s3-ipa-compilado
+      #- aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba --capabilities CAPABILITY_NAMED_IAM --region us-east-1
+      # - aws s3 sync ./frontend/mfe-contenedor/dist s3://s3-mf-contenedor --delete
+      #  aws s3 sync ./frontend/mf-header/dist s3://s3-mf-header --delete
+      # - aws s3 sync ./frontend/mfe-prueba/dist s3://s3-mf-prueba --delete
+      # - aws s3 sync ./frontend/mfe-registro-logueo-comprador/dist s3://s3-mf-registro-logueo-comprador --delete
+      # - aws s3 sync ./frontend/mfe-administrador-gestion/dist s3://s3-mf-administrador-gestion --delete
+      # - aws s3 sync ./frontend/mfe-registrar-contribuidor/dist s3://s3-mf-registrar-contribuidor --delete
+      # - aws s3 sync ./frontend/mfe-hu2-003-verificar-estado-de-subida-del-arte/dist s3://s3-mf-verificar-estado-de-subida-de-arte --delete
+      # - aws s3 sync ./frontend/mfe-explorar-blog/dist s3://s3-mf-explorar-blog --delete
+      # - aws s3 sync ./frontend/mfe-administrador-gestion-devoluciones/dist s3://s3-mf-administrador-gestion-devoluciones --delete
+      # - aws s3 sync ./frontend/mfe-administrador-gestion-solicutudes/dist s3://s3-mf-administrador-gestion-solicutudes --delete
+      # - aws s3 sync ./frontend/mfe-finanzas-contribuidor/dist s3://s3-mf-finanzas-contribuidor --delete
+
+artifacts:
+  files:
+    - */*
+    #- packaged.yaml  # Include the packaged template file
