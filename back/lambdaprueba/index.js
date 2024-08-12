@@ -1,4 +1,4 @@
-export const handler = async (event) => {
+exports.handler = async (event) => {
     try {
         // Lógica principal de tu Lambda
         const response = {
