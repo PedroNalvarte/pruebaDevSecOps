@@ -43,5 +43,5 @@ phases:
 
 artifacts:
   files:
-    - */*
+    - template.yml
     #- packaged.yaml  # Include the packaged template file
