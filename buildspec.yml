@@ -27,6 +27,7 @@ phases:
   post_build:
     commands:
 
+      - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket codepipeline-us-east-2-690618888844
       # - sam package template.yaml --output-template-file packaged.yaml --s3-bucket s3-ipa-compilado
       - aws cloudformation deploy --template-file template.yaml --stack-name stack-prueba --capabilities CAPABILITY_NAMED_IAM --region us-east-2
       # - aws s3 sync ./frontend/mfe-contenedor/dist s3://s3-mf-contenedor --delete
