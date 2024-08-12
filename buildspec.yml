@@ -22,7 +22,7 @@ phases:
       #- cd ../mfe-prueba && npm install && npm run build
       #- cd ../../
 
-      - sam build --use-container
+      - sam build # --use-container
 
   post_build:
     commands:
