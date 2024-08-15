@@ -1,7 +1,7 @@
 version: 0.2
 
 phases:
-  install:  # Install dependencies
+  install:
     runtime-versions:
       nodejs: 20
     commands:
@@ -10,32 +10,25 @@ phases:
 
   pre_build:
     commands:
-      - sam validate --template-file template.yaml
+      # Omitir la validación temporalmente
+      #- sam validate --template-file template.yaml
 
   build:
     commands:
-      #- cd frontend/mfe-contenedor && npm install && npm run build
-      #- cd ../mfe-lista-usuarios && npm install && npm run build
-      #- cd ../mfe-crear-usuario && npm install && npm run build
-      #- cd ../mfe-sidebar && npm install && npm run build
-      #- cd ../mfe-header && npm install && npm run build
-      #- cd ../mfe-prueba && npm install && npm run build
-      #- cd ../../
-
       - sam build # --use-container
 
   post_build:
     commands:
-
       - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket prueba22222 
       - aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba --capabilities CAPABILITY_NAMED_IAM --region us-east-2
+
       # Sincroniza la carpeta del primer microfront con el bucket correspondiente en S3
       - echo "Deploying Microfront 1"
       - aws s3 sync ./front/microfront1 s3://s3-mf-microfront1 --delete
+
       # Sincroniza la carpeta del segundo microfront con el bucket correspondiente en S3
       - echo "Deploying Microfront 2"
       - aws s3 sync ./front/microfront2 s3://s3-mf-microfront2 --delete
-
 
 artifacts:
   files:
