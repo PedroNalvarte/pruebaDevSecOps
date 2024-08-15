@@ -31,7 +31,7 @@ Resources:
   MicrofrontBucket1:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "s3-mf-microfront1"
+      BucketName: s3-mf-microfront1
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -65,13 +65,13 @@ Resources:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::microfront1-${AWS::AccountId}/*"
+            Resource: !Sub "arn:aws:s3:::s3-mf-microfront1/*"
             Principal: "*"
 
   MicrofrontBucket2:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "s3-mf-microfront2"
+      BucketName: s3-mf-microfront2
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -105,7 +105,7 @@ Resources:
         Statement:
           - Action: "s3:GetObject"
             Effect: Allow
-            Resource: !Sub "arn:aws:s3:::microfront2-${AWS::AccountId}/*"
+            Resource: !Sub "arn:aws:s3:::s3-mf-microfront2/*"
             Principal: "*"
 
 Outputs:
