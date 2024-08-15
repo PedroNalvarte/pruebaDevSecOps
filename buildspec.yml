@@ -5,32 +5,28 @@ phases:
     runtime-versions:
       nodejs: 20
     commands:
-      - npm install  # Install Node.js dependencies (if applicable)
-      - pip install --upgrade aws-sam-cli  # Upgrade the AWS SAM CLI
+      - npm install
+      - pip install --upgrade aws-sam-cli
+      - pip show aws-sam-cli  # Verificar la instalación de SAM CLI
 
   pre_build:
     commands:
-      # Omitir la validación temporalmente
+      # Omitir la validación temporalmente si está causando problemas
       #- sam validate --template-file template.yaml
 
   build:
     commands:
-      - sam build # --use-container
+      - sam build --debug  # Añadir --debug para obtener más detalles
 
   post_build:
     commands:
-      - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket prueba22222 
+      - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket prueba22222 --debug
       - aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba --capabilities CAPABILITY_NAMED_IAM --region us-east-2
-
-      # Sincroniza la carpeta del primer microfront con el bucket correspondiente en S3
       - echo "Deploying Microfront 1"
       - aws s3 sync ./front/microfront1 s3://s3-mf-microfront1 --delete
-
-      # Sincroniza la carpeta del segundo microfront con el bucket correspondiente en S3
       - echo "Deploying Microfront 2"
       - aws s3 sync ./front/microfront2 s3://s3-mf-microfront2 --delete
 
 artifacts:
   files:
     - template.yaml
-    #- packaged.yaml  # Include the packaged template file
