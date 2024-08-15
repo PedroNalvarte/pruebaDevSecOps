@@ -10,6 +10,8 @@ Globals:
     Timeout: 3
 
 Resources:
+
+  # Lambda Function and API Gateway
             
   LambdaPrueba:
     Type: AWS::Serverless::Function
@@ -26,7 +28,34 @@ Resources:
             Path: /user/prueba
             Method: get
 
+  # S3 Buckets for Microfronts
+  MicrofrontBucket1:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "microfront1-${AWS::AccountId}"
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket2:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "microfront2-${AWS::AccountId}"
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
 Outputs:
+  # Output for API Gateway URL
   ApiGatewayUrl:
     Description: "API Gateway endpoint URL for Prod stage"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+
+  # Outputs for S3 Website URLs
+  Microfront1URL:
+    Description: "URL for Microfront 1"
+    Value: !Sub "http://${MicrofrontBucket1}.s3-website-${AWS::Region}.amazonaws.com/"
+
+  Microfront2URL:
+    Description: "URL for Microfront 2"
+    Value: !Sub "http://${MicrofrontBucket2}.s3-website-${AWS::Region}.amazonaws.com/"

@@ -1,8 +1,9 @@
 {
     "name": "devsecops",
     "version": "1.0.0",
-    "dependencies": {},
-    "devDependencies": {},
+    "dependencies": {
+        "devsecops": "file:"
+    },
     "main": "app.js",
     "scripts": {
         "test": "jest"
