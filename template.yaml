@@ -121,4 +121,4 @@ Outputs:
 
   Microfront2URL:
     Description: "URL for Microfront 2"
-    Value: !Sub "
+    Value: !Sub "http://${MicrofrontBucket2}.s3-website-${AWS::Region}.amazonaws.com/"
