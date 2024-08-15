@@ -12,7 +12,6 @@ Globals:
 Resources:
 
   # Lambda Function and API Gateway
-            
   LambdaPrueba:
     Type: AWS::Serverless::Function
     Properties:
@@ -30,45 +29,44 @@ Resources:
 
   # S3 Buckets for Microfronts
   MicrofrontBucket1:
-  Type: AWS::S3::Bucket
-  Properties:
-    BucketName: !Sub "microfront1-${AWS::AccountId}"
-    OwnershipControls:
-      Rules:
-        - ObjectOwnership: BucketOwnerPreferred
-    CorsConfiguration: 
-      CorsRules:
-        - AllowedOrigins:
-            - "*"
-          AllowedMethods:
-            - GET
-            - PUT
-            - POST
-            - DELETE
-            - HEAD
-          AllowedHeaders:
-            - "*"
-          Id: MicrofrontBucket1CORS
-          MaxAge: 3000
-    PublicAccessBlockConfiguration:
-      BlockPublicAcls: false
-      BlockPublicPolicy: false
-      IgnorePublicAcls: false
-      RestrictPublicBuckets: false
-    WebsiteConfiguration:
-      IndexDocument: index.html
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "microfront1-${AWS::AccountId}"
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket1CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
 
-MicrofrontBucket1Policy:
-  Type: AWS::S3::BucketPolicy
-  Properties:
-    Bucket: !Ref MicrofrontBucket1
-    PolicyDocument:
-      Statement:
-        - Action: "s3:GetObject"
-          Effect: Allow
-          Resource: !Sub "arn:aws:s3:::microfront1-${AWS::AccountId}/*"
-          Principal: "*"
-
+  MicrofrontBucket1Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket1
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::microfront1-${AWS::AccountId}/*"
+            Principal: "*"
 
   MicrofrontBucket2:
     Type: AWS::S3::Bucket
@@ -123,4 +121,4 @@ Outputs:
 
   Microfront2URL:
     Description: "URL for Microfront 2"
-    Value: !Sub "http://${MicrofrontBucket2}.s3-website-${AWS::Region}.amazonaws.com/"
+    Value: !Sub "
