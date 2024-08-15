@@ -11,8 +11,8 @@ phases:
 
   pre_build:
     commands:
-      # Omitir la validación temporalmente si está causando problemas
-      #- sam validate --template-file template.yaml
+      - cd front/microfront2 && npm install && npm run build
+      - cd ../..
 
   build:
     commands:
