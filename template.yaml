@@ -31,7 +31,7 @@ Resources:
   MicrofrontBucket1:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "microfront1-${AWS::AccountId}"
+      BucketName: !Sub "s3-mf-microfront1"
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
@@ -71,7 +71,7 @@ Resources:
   MicrofrontBucket2:
     Type: AWS::S3::Bucket
     Properties:
-      BucketName: !Sub "microfront2-${AWS::AccountId}"
+      BucketName: !Sub "s3-mf-microfront2"
       OwnershipControls:
         Rules:
           - ObjectOwnership: BucketOwnerPreferred
