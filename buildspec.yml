@@ -11,8 +11,6 @@ phases:
 
   pre_build:
     commands:
-      - cd front/microfront2 && npm install && npm run build
-      - cd ../..
 
   build:
     commands:
