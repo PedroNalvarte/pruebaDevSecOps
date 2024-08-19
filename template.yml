@@ -1,9 +1,5 @@
-AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: >
-  sam-app
-
-  Sample SAM Template for sam-app
+Description: Funciones para deploy CI/CD Front y Back
 
 Globals:
   Function:
@@ -15,20 +11,14 @@ Resources:
   LambdaPrueba:
     Type: AWS::Serverless::Function
     Properties:
-      CodeUri: back/lambdaprueba/
       Handler: index.handler
       Runtime: nodejs20.x
+      CodeUri: back/lambdaprueba/
       Architectures:
         - x86_64
       Events:
         LambdaPrueba:
           Type: Api
           Properties:
-            Path: /user/prueba
+            Path: /test
             Method: get
-
-Outputs:
-  # Output for API Gateway URL
-  ApiGatewayUrl:
-    Description: "API Gateway endpoint URL for Prod stage"
-    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"

@@ -1,5 +1,4 @@
 version: 0.2
-
 phases:
   install:
     runtime-versions:
@@ -18,9 +17,9 @@ phases:
 
   post_build:
     commands:
-      - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket lambda-prueba-bucket --debug
-      - aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba --capabilities CAPABILITY_NAMED_IAM --region us-east-2
+      - aws cloudformation package --template-file template.yml --output-template-file template-out.yml --s3-bucket dso-test-bucket
 
 artifacts:
   files:
     - template.yaml
+    - template-out.yml
