@@ -20,10 +20,10 @@ phases:
     commands:
       - sam package --template-file template.yml --output-template-file packaged.yml --s3-bucket dso-test-bucketv1 --debug
       - aws cloudformation deploy --template-file packaged.yml --stack-name stack-prueba-dso --capabilities CAPABILITY_NAMED_IAM --region us-east-2
-      # - echo "Deploying Microfront 1"
-      # - aws s3 sync ./front/microfront1 s3://s3-mf-microfront1 --delete
-      # - echo "Deploying Microfront 2"
-      # - aws s3 sync ./front/microfront2 s3://s3-mf-microfront2 --delete
+      - echo "Deploying Microfront 1"
+      - aws s3 sync ./front/microfront1 s3://s3-mf-microfront1-v1 --delete
+      - echo "Deploying Microfront 2"
+      - aws s3 sync ./front/microfront2 s3://s3-mf-microfront2-v1 --delete
       - aws cloudformation describe-stack-events --stack-name stack-prueba-dso --region us-east-2
       - aws cloudformation validate-template --template-body file://template.yml
 
