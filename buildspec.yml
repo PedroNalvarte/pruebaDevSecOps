@@ -7,22 +7,20 @@ phases:
     commands:
       - npm install
       - pip install --upgrade aws-sam-cli
-      - pip show aws-sam-cli
+      - pip show aws-sam-cli  # Verificar la instalación de SAM CLI
 
   pre_build:
-    commands: []
+    commands:
 
   build:
     commands:
-      - sam build --debug
-      #dasdsad
+      - sam build --debug  # Añadir --debug para obtener más detalles
 
   post_build:
     commands:
-      - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket lambda-prueba-bucket --debug
-      - aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba2 --capabilities CAPABILITY_NAMED_IAM --region us-east-2 --disable-rollback || export CFN_DEPLOY_FAILED=true
-      - if [ "$CFN_DEPLOY_FAILED" == "true" ]; then aws cloudformation describe-stack-events --stack-name stack-prueba2; fi
+      - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket prueba22222 --debug
+      - aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba --capabilities CAPABILITY_NAMED_IAM --region us-east-2 --disable-rollback
 
 artifacts:
   files:
-    - build.log
+    - template.yaml
