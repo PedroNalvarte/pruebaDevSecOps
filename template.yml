@@ -1,5 +1,9 @@
+AWSTemplateFormatVersion: '2010-09-09'
 Transform: AWS::Serverless-2016-10-31
-Description: Funciones para deploy CI/CD Front y Back
+Description: >
+  sam-app
+
+  Sample SAM Template for sam-app
 
 Globals:
   Function:
@@ -11,14 +15,110 @@ Resources:
   LambdaPrueba:
     Type: AWS::Serverless::Function
     Properties:
+      CodeUri: back/lambdaprueba/
       Handler: index.handler
       Runtime: nodejs20.x
-      CodeUri: back/lambdaprueba/
       Architectures:
         - x86_64
       Events:
         LambdaPrueba:
           Type: Api
           Properties:
-            Path: /test
+            Path: /user/prueba
             Method: get
+
+  # S3 Buckets for Microfronts
+  MicrofrontBucket1:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-microfront1
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket1CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket1Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket1
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-microfront1/*"
+            Principal: "*"
+
+  MicrofrontBucket2:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: s3-mf-microfront2
+      OwnershipControls:
+        Rules:
+          - ObjectOwnership: BucketOwnerPreferred
+      CorsConfiguration: 
+        CorsRules:
+          - AllowedOrigins:
+              - "*"
+            AllowedMethods:
+              - GET
+              - PUT
+              - POST
+              - DELETE
+              - HEAD
+            AllowedHeaders:
+              - "*"
+            Id: MicrofrontBucket2CORS
+            MaxAge: 3000
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: false
+        BlockPublicPolicy: false
+        IgnorePublicAcls: false
+        RestrictPublicBuckets: false
+      WebsiteConfiguration:
+        IndexDocument: index.html
+
+  MicrofrontBucket2Policy:
+    Type: AWS::S3::BucketPolicy
+    Properties:
+      Bucket: !Ref MicrofrontBucket2
+      PolicyDocument:
+        Statement:
+          - Action: "s3:GetObject"
+            Effect: Allow
+            Resource: !Sub "arn:aws:s3:::s3-mf-microfront2/*"
+            Principal: "*"
+
+Outputs:
+  # Output for API Gateway URL
+  ApiGatewayUrl:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
+
+  # Outputs for S3 Website URLs
+  Microfront1URL:
+    Description: "URL for Microfront 1"
+    Value: !Sub "http://${MicrofrontBucket1}.s3-website-${AWS::Region}.amazonaws.com/"
+
+  Microfront2URL:
+    Description: "URL for Microfront 2"
+    Value: !Sub "http://${MicrofrontBucket2}.s3-website-${AWS::Region}.amazonaws.com/"
