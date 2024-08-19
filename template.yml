@@ -114,7 +114,7 @@ Outputs:
     Description: "API Gateway endpoint URL for Prod stage"
     Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
 
-  Outputs for S3 Website URLs
+  # Outputs for S3 Website URLs
   Microfront1URL:
     Description: "URL for Microfront 1"
     Value: !Sub "http://${MicrofrontBucket1}.s3-website-${AWS::Region}.amazonaws.com/"
