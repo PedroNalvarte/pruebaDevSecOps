@@ -3,7 +3,7 @@ exports.handler = async (event) => {
         // Lógica principal de tu Lambda
         const response = {
             statusCode: 200,
-            body: JSON.stringify('Esto es una prueba de despliegue de mi lambda 19/08/2024'),
+            body: JSON.stringify('Esto es una prueba de despliegue de mi lambda xdxd 19/08/2024'),
         };
         return response;
     } catch (error) {
