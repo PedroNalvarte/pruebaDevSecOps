@@ -7,7 +7,7 @@ phases:
     commands:
       - npm install
       - pip install --upgrade aws-sam-cli
-      - pip show aws-sam-cli  # Verificar la instalación de SAM CLI
+      - pip show aws-sam-cli
 
   pre_build:
     commands:
