@@ -18,12 +18,8 @@ phases:
 
   post_build:
     commands:
-      - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket prueba22222 --debug
+      - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket lambda-prueba-bucket --debug
       - aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba --capabilities CAPABILITY_NAMED_IAM --region us-east-2
-      - echo "Deploying Microfront 1"
-      - aws s3 sync ./front/microfront1 s3://s3-mf-microfront1 --delete
-      - echo "Deploying Microfront 2"
-      - aws s3 sync ./front/microfront2 s3://s3-mf-microfront2 --delete
 
 artifacts:
   files:
