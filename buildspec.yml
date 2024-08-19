@@ -24,6 +24,8 @@ phases:
       # - aws s3 sync ./front/microfront1 s3://s3-mf-microfront1 --delete
       # - echo "Deploying Microfront 2"
       # - aws s3 sync ./front/microfront2 s3://s3-mf-microfront2 --delete
+      - aws cloudformation describe-stack-events --stack-name stack-prueba-dso --region us-east-2
+      - aws cloudformation validate-template --template-body file://template.yml
 
 artifacts:
   files:
