@@ -10,17 +10,19 @@ phases:
       - pip show aws-sam-cli
 
   pre_build:
-    commands:
+    commands: []
 
   build:
     commands:
-      - sam build --debug  # Añadir --debug para obtener más detalles
+      - sam build --debug 2>&1 | tee build.log
 
   post_build:
     commands:
-      - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket lambda-prueba-bucket --debug
-      - aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba --capabilities CAPABILITY_NAMED_IAM --region us-east-2
+      - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket lambda-prueba-bucket --debug 2>&1 | tee package.log
+      - aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba --capabilities CAPABILITY_NAMED_IAM --region us-east-2 --debug 2>&1 | tee deploy.log
 
 artifacts:
   files:
-    - template.yaml
+    - build.log
+    - package.log
+    - deploy.log
