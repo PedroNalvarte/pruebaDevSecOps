@@ -19,7 +19,7 @@ phases:
   post_build:
     commands:
       - sam package --template-file template.yaml --output-template-file packaged.yaml --s3-bucket lambda-prueba-bucket --debug
-      - aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba2 --capabilities CAPABILITY_NAMED_IAM --region us-east-2 || export CFN_DEPLOY_FAILED=true
+      - aws cloudformation deploy --template-file packaged.yaml --stack-name stack-prueba2 --capabilities CAPABILITY_NAMED_IAM --region us-east-2 --disable-rollback || export CFN_DEPLOY_FAILED=true
       - if [ "$CFN_DEPLOY_FAILED" == "true" ]; then aws cloudformation describe-stack-events --stack-name stack-prueba2; fi
 
 artifacts:
