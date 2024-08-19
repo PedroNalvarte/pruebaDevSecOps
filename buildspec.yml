@@ -17,7 +17,7 @@ phases:
 
   post_build:
     commands:
-      - aws cloudformation package --template-file template.yml --output-template-file template-out.yml --s3-bucket dso-test-bucket
+      - aws cloudformation package --template-file template.yml --output-template-file template-out.yml --s3-bucket dso-test-bucketv1
 
 artifacts:
   files:
